@@ -1,17 +1,25 @@
 package se.lexicon;
 
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 public class Main {
    private static final String DIVIDER = "==================================";
 
    public static void main(String[] args) {
-      Scanner scanner = new Scanner(System.in);
-      boolean running = true;
+      try (Scanner scanner = new Scanner(System.in)) {
+         runMenu(scanner);
+      } catch (NoSuchElementException e) {
+         // Input stream was closed (e.g. Ctrl+D / Ctrl+Z), so there is nothing more to read.
+         System.out.println();
+         System.out.println("Input closed. Goodbye!");
+      }
+   }
 
-      while (running) {
+   private static void runMenu(Scanner scanner) {
+      while (true) {
          printMenu();
-         String choice = scanner.nextLine().trim();
+         String choice = InputHelper.readLine(scanner, "Choose an option: ");
 
          switch (choice) {
             case "1" -> TemperatureConverter.run(scanner);
@@ -19,13 +27,12 @@ public class Main {
             case "3" -> BmiCalculator.run(scanner);
             case "4" -> {
                System.out.println("Goodbye!");
-               running = false;
+               return;
             }
             default -> System.out.println("Invalid option. Please choose 1-4.");
          }
          System.out.println();
       }
-      scanner.close();
    }
 
    private static void printMenu() {
@@ -37,6 +44,5 @@ public class Main {
       System.out.println("3. BMI Calculator");
       System.out.println("4. Exit");
       System.out.println(DIVIDER);
-      System.out.print("Choose an option: ");
    }
 }

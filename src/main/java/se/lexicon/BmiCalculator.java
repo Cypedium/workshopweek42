@@ -2,20 +2,26 @@ package se.lexicon;
 
 import java.util.Scanner;
 
-public class BmiCalculator {
+public final class BmiCalculator {
+   // WHO adult BMI category limits (upper bound, exclusive).
+   private static final double UNDERWEIGHT_LIMIT = 18.5;
+   private static final double NORMAL_LIMIT = 25.0;
+   private static final double OVERWEIGHT_LIMIT = 30.0;
+
+   private BmiCalculator() {
+   }
 
    public static double calculateBmi(double weightKg, double heightCm) {
       double heightM = heightCm / 100;
       return weightKg / (heightM * heightM);
    }
 
-   // WHO adult BMI categories.
    public static String getCategory(double bmi) {
-      if (bmi < 18.5) {
+      if (bmi < UNDERWEIGHT_LIMIT) {
          return "Underweight";
-      } else if (bmi < 25) {
+      } else if (bmi < NORMAL_LIMIT) {
          return "Normal weight";
-      } else if (bmi < 30) {
+      } else if (bmi < OVERWEIGHT_LIMIT) {
          return "Overweight";
       }
       return "Obese";
@@ -33,12 +39,7 @@ public class BmiCalculator {
    }
 
    private static double readPositive(Scanner scanner, String prompt) {
-      while (true) {
-         double value = InputHelper.readDouble(scanner, prompt);
-         if (value > 0) {
-            return value;
-         }
-         System.out.println("Value must be greater than 0. Please try again.");
-      }
+      return InputHelper.readDouble(scanner, prompt, value -> value > 0,
+            "Value must be greater than 0. Please try again.");
    }
 }
