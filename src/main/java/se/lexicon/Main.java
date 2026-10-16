@@ -16,7 +16,7 @@ public class Main {
          switch (choice) {
             case "1" -> TemperatureConverter.run(scanner);
             case "2" -> CurrencyConverter.run(scanner);
-            case "3" -> System.out.println("BMI Calculator is not implemented yet.");
+            case "3" -> BmiCalculator.run(scanner);
             case "4" -> {
                System.out.println("Goodbye!");
                running = false;
