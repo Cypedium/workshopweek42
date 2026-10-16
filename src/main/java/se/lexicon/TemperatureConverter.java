@@ -22,44 +22,16 @@ public class TemperatureConverter {
 
          switch (choice) {
             case "1" -> {
-               double celsius = readTemperature(scanner, "Enter temperature in Celsius: ");
+               double celsius = InputHelper.readDouble(scanner, "Enter temperature in Celsius: ");
                System.out.printf("%.2f Celsius = %.2f Fahrenheit%n", celsius, celsiusToFahrenheit(celsius));
             }
             case "2" -> {
-               double fahrenheit = readTemperature(scanner, "Enter temperature in Fahrenheit: ");
+               double fahrenheit = InputHelper.readDouble(scanner, "Enter temperature in Fahrenheit: ");
                System.out.printf("%.2f Fahrenheit = %.2f Celsius%n", fahrenheit, fahrenheitToCelsius(fahrenheit));
             }
             default -> System.out.println("Invalid option. Please choose 1 or 2.");
          }
          System.out.println();
-      } while (askYesNo(scanner, "Do you want to convert another temperature? (yes/no): "));
-   }
-
-   private static boolean askYesNo(Scanner scanner, String prompt) {
-      while (true) {
-         System.out.print(prompt);
-         String answer = scanner.nextLine().trim().toLowerCase();
-         switch (answer) {
-            case "yes", "y" -> {
-               return true;
-            }
-            case "no", "n" -> {
-               return false;
-            }
-            default -> System.out.println("Please answer yes or no.");
-         }
-      }
-   }
-
-   private static double readTemperature(Scanner scanner, String prompt) {
-      while (true) {
-         System.out.print(prompt);
-         String input = scanner.nextLine().trim().replace(',', '.');
-         try {
-            return Double.parseDouble(input);
-         } catch (NumberFormatException e) {
-            System.out.println("Invalid number. Please try again.");
-         }
-      }
+      } while (InputHelper.askYesNo(scanner, "Do you want to convert another temperature? (yes/no): "));
    }
 }
