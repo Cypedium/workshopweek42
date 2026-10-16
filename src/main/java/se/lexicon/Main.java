@@ -14,7 +14,7 @@ public class Main {
          String choice = scanner.nextLine().trim();
 
          switch (choice) {
-            case "1" -> System.out.println("Temperature Converter is not implemented yet.");
+            case "1" -> TemperatureConverter.run(scanner);
             case "2" -> System.out.println("Currency Converter is not implemented yet.");
             case "3" -> System.out.println("BMI Calculator is not implemented yet.");
             case "4" -> {
